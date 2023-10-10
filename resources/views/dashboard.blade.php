@@ -41,7 +41,7 @@
 
                 @auth
                    @if ($user->id !== auth()->user()->id)
-                        @if (!$user->siguiendo(auth()->user()))
+                        @if (!$user->validateFollower(auth()->user()))
                             <form action="{{route('users.follow',$user)}}" method="post">
                                 @csrf
                                 <input type="submit" class="bg-blue-600 text-white uppdercase rounded-lg px-3 py-1 text-xs font-bold cursor-pointer" value="seguir">

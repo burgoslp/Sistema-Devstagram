@@ -66,8 +66,10 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'followers' ,'follower_id','user_id');
     }
 
-    public function siguiendo(User $user){
+    public function validateFollower(User $user){
 
         return $this->followers->contains($user->id);
     }
+
+    
 }
