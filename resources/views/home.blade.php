@@ -22,7 +22,7 @@
                 {{$posts->links()}}
             </div>
         </div>
-        <div class="md:w-1/4 ">
+        <div class="md:w-1/4 mt-10 md:mt-0 ">
             <div class="shadow bg-white p-5 mb-2">
                  <h1 class="font-bold text-center uppercase">
                     @auth Usuarios Seguidos @endauth
@@ -50,9 +50,7 @@
                         @endforeach
                  </ul>               
             </div>
-            <div  class="shadow bg-white p-5">
-                <p class="uppercase font-bold text-center"><a  href="#" >ver más</a></p>
-            </div>
+            
          </div>
     </section>
 @endsection

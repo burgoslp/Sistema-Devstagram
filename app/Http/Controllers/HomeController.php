@@ -15,11 +15,11 @@ class HomeController extends Controller
             $posts=Post::whereIn('user_id',$followings)->latest()->paginate(20);
             $users=User::whereIn('id',$followings)->latest()->get();
        }else{
-            $posts=Post::paginate(20);
-            $users=User::paginate(5);
+            $posts=Post::cursorPaginate(20);
+            $users=User::paginate(10);
        }
-       
-       
+    
+      
        return view('home',["posts"=>$posts,"users"=>$users]);
     }
 }

@@ -71,5 +71,8 @@ class User extends Authenticatable
         return $this->followers->contains($user->id);
     }
 
-    
+    public function validateFollowings(User $user){
+
+        return $this->followings->contains($user->id);
+    }
 }
