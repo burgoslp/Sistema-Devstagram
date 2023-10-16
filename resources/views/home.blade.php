@@ -15,7 +15,12 @@
             </div>
             
             @else 
-            <p class="text-gray-600 uppercase text-sm text-center font-bold">No hay publicaciones de tus seguidores</p>
+                @auth
+                    <p class="text-gray-600 uppercase text-sm text-center font-bold">No hay publicaciones de tus seguidores</p>
+                @endauth
+                @guest
+                    <p class="text-gray-600 uppercase text-sm text-center font-bold">No hay publicaciones</p>
+                @endguest
             @endif
 
             <div class="mt-10">
@@ -43,7 +48,8 @@
                                 </div>
                                 <div class="w-1/2">
                                     <a href="{{route('posts.index',$user)}}" class="font-bold">{{$user->username}}</a>
-                                    <p class="text-sm text-gray-500">{{$user->followers->count()}} @choice('seguidor|seguidores',$user->followers->count())</p>
+                                    <p class="text-xs text-gray-500">{{$user->followers->count()}} @choice('seguidor|seguidores',$user->followers->count())</p>
+                                    <p class="text-xs text-gray-500">{{$user->posts->count()}} @choice('Publicacion|Publicaciones',$user->posts->count())</p>
                                 </div>
                             </li>
                             @endif                       
