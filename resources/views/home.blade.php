@@ -5,58 +5,32 @@
 @section('contenido')
     <section class="container mx-auto mt-10 md:flex gap-4">
         <div class="md:w-3/4">
-            @if($posts->count() > 0)
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                @foreach ($posts as $post)
-                    <div>
-                        <a href="{{route('posts.show',['user'=>$post->user->username,'post'=>$post->id])}}"><img src="{{asset('uploads')."/".$post->imagen}}" alt="imagen del post {{$post->titulo}}"></a>
-                    </div>
-                @endforeach
-            </div>
-            
-            @else 
-                @auth
-                    <p class="text-gray-600 uppercase text-sm text-center font-bold">No hay publicaciones de tus seguidores</p>
-                @endauth
-                @guest
-                    <p class="text-gray-600 uppercase text-sm text-center font-bold">No hay publicaciones</p>
-                @endguest
-            @endif
-
+            <x-listar-post :posts="$posts">
+                <x-slot:autenticado>
+                        <p class="text-gray-600 uppercase text-sm text-center font-bold">No hay publicaciones, sigue más usuarios.</p>
+                </x-slot:autenticado>
+                <x-slot:invitado>
+                        <p class="text-gray-600 uppercase text-sm text-center font-bold">No hay publicaciones.</p>
+                </x-slot:invitado>
+            </x-listar-post>
             <div class="mt-10">
                 {{$posts->links()}}
             </div>
         </div>
-        <div class="md:w-1/4 mt-10 md:mt-0 ">
-            <div class="shadow bg-white p-5 mb-2">
-                 <h1 class="font-bold text-center uppercase">
-                    @auth Usuarios Seguidos @endauth
-                    @guest Usuarios Destacados @endguest
-                 </h1>
-            </div>
-            <div  class="shadow bg-white p-5 mb-2">
-                 <ul>
-                        @foreach ($users as $user)
-                            @if($user->followers->count())
-                            <li class="flex items-center gap-2 mb-3">
-                                <div class="w-1/5">
-                                    @if($user->imagen != '')
-                                        <img src="{{asset('perfiles').'/'.$user->imagen}}" alt="imagen de perfil del usuario" class="rounded">
-                                    @else
-                                            <img src="{{asset('img/usuario.png')}}" alt="imagen de perfil del usuario" class="rounded">
-                                    @endif
-                                </div>
-                                <div class="w-1/2">
-                                    <a href="{{route('posts.index',$user)}}" class="font-bold">{{$user->username}}</a>
-                                    <p class="text-xs text-gray-500">{{$user->followers->count()}} @choice('seguidor|seguidores',$user->followers->count())</p>
-                                    <p class="text-xs text-gray-500">{{$user->posts->count()}} @choice('Publicacion|Publicaciones',$user->posts->count())</p>
-                                </div>
-                            </li>
-                            @endif                       
-                        @endforeach
-                 </ul>               
-            </div>
-            
-         </div>
+        <div class="md:w-1/4 mt-10 md:mt-0 ">  
+            @auth
+                @if($usersFollowings->count())
+                    <x-listar-followers :users="$usersFollowings" />
+                
+                @else
+                    <x-listar-user :users="$users" />
+                @endif
+            @endauth
+              
+            @guest
+                <x-listar-user :users="$users" />
+            @endguest
+                
+        </div>
     </section>
 @endsection
