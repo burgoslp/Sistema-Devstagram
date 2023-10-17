@@ -67,7 +67,7 @@ class User extends Authenticatable
     }
 
     public function validateFollower(User $user){
-
+       
         return $this->followers->contains($user->id);
     }
 

@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class FollowerController extends Controller
 {
+
+    public function index(User $user){
+       $posts=$user->posts->skip(0)->take(5);            
+        return view('followers.index',['user'=>$user,'posts'=>$posts]);
+    }
+
     public function store(User $user){
 
         $user->followers()->attach(auth()->user()->id);

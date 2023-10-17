@@ -20,17 +20,14 @@
         <div class="md:w-1/4 mt-10 md:mt-0 ">  
             @auth
                 @if($usersFollowings->count())
-                    <x-listar-followers :users="$usersFollowings" />
-                
+                    <x-listar-followers :users="$usersFollowings" />                
                 @else
                     <x-listar-user :users="$users" />
                 @endif
-            @endauth
-              
+            @endauth              
             @guest
                 <x-listar-user :users="$users" />
-            @endguest
-                
+            @endguest                
         </div>
     </section>
 @endsection
