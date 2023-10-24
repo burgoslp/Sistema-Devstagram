@@ -31,11 +31,16 @@
                 </p>
                 <p class="text-gray-600 text-sm mb-3 font-bold">
                     {{$user->followings->count()}}
-                    @if ($user->id === auth()->user()->id)
-                        <a href="{{route('users.followers',$user)}}" class="font-normal hover:text-black">Siguiendo</a>
-                    @else
-                        <span class="font-normal hover:text-black">Siguiendo</span>                       
-                    @endif
+                    @auth
+                        @if ($user->id === auth()->user()->id)
+                            <a href="{{route('users.followers',$user)}}" class="font-normal hover:text-black">Siguiendo</a>
+                        @else
+                            <span class="font-normal hover:text-black">Siguiendo</span>                       
+                        @endif
+                    @endauth
+                    @guest
+                        <span class="font-normal hover:text-black">Siguiendo</span>      
+                    @endguest
                 </p>
 
                 <p class="text-gray-600 text-sm mb-3 font-bold">
@@ -64,11 +69,7 @@
     </div>
     <section class="container mx-auto mt-10">
         <h2 class="text-4xl text-center font-black my-10">Publicaciones</h2>
-        <x-listar-post :posts="$posts">
-            <x-slot:autenticado>
-                <p class="text-gray-600 uppercase text-sm text-center font-bold">No has creado publicaciones</p>
-            </x-slot:autenticado>
-        </x-listar-post>
+        <x-listar-post :posts="$posts" />
         <div class="mt-10">
             {{$posts->links()}}
         </div>

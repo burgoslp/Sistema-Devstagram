@@ -9,10 +9,10 @@
     </div>                                  
 @else 
    @auth
-        {{$autenticado}}       
+        <p class="text-gray-600 uppercase text-sm text-center font-bold">No has creado publicaciones</p>
    @endauth
    @guest
-        {{$invitado }}
+        <p class="text-gray-600 uppercase text-sm text-center font-bold">El usuario no ha subido publicaciones</p>
    @endguest   
 @endif
             
