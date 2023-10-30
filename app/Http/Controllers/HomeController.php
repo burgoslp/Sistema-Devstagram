@@ -17,7 +17,7 @@ class HomeController extends Controller
             $posts=Post::whereIn('user_id',$followings)->latest()->paginate(20);
             $usersFollowings=User::whereIn('id',$followings)->latest()->get();
             if(!$usersFollowings->count()){//si soy un nuevo ususario no tendré seguidores 
-               $users=User::paginate(10);//muestra una cantidad de usuarios en caso de ser nuevo usuario
+               $users=User::whereNotIn('id',[auth()->user()->id])->get();//muestra una cantidad de usuarios en caso de ser nuevo usuario
             }
        }else{
             $posts=Post::cursorPaginate(20);

@@ -7,8 +7,8 @@
    <div  class="shadow bg-white p-5 mb-2">
         <ul>      
              
-            @foreach ($users as $user)   
-                @if ($user->id !== auth()->user()->id)
+            @foreach ($users as $user)
+
                     <li class="flex items-center gap-2 mb-3">
                         <div class="w-1/5">
                             @if($user->imagen != '')
@@ -23,7 +23,6 @@
                             <p class="text-xs text-gray-500">{{$user->posts->count()}} @choice('Publicacion|Publicaciones',$user->posts->count())</p>
                         </div>
                     </li>        
-                @endif                                     
             @endforeach            
         </ul>               
    </div>
