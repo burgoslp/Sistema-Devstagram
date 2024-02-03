@@ -28,7 +28,7 @@ class perfilController extends Controller
             $nombreImagen= Str::uuid().".".$image->extension();
             
             $imagenServidor = Image::make($image);
-            $imagenServidor->fit(1000,1000);
+            $imagenServidor->fit(500,500);
     
             $imagenPath=public_path('perfiles')."/".$nombreImagen;
             $imagenServidor->save($imagenPath);
